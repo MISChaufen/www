@@ -8,56 +8,92 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+<div class="container">
 
   <header>
-    <div class="header-brand">
-      <img src="img/mischaufen-badge.jpg" alt="MISChaufen" class="logo">
-      <div>
-        <h1><a href="/">MISChaufen</a><span class="cursor">_</span></h1>
-        <p class="tagline">netrunners · techies · signal ops · night city</p>
-      </div>
+    <img src="img/mischaufen.jpg" alt="MISChaufen" class="banner">
+    <div class="glow-line"></div>
+    <div class="header-info">
+      <h1><a href="/">MISChaufen</a><span class="cursor">_</span></h1>
+      <p class="tagline">virtual hackerspace · netrunners · techies · signal ops</p>
+      <nav>
+        <a href="#about">About</a>
+        <a href="#projects">Projects</a>
+        <a href="#team">Team</a>
+        <a href="#contact">Contact</a>
+      </nav>
     </div>
-    <nav>
-      <a href="#about">About</a>
-      <a href="#projects">Projects</a>
-      <a href="#team">Team</a>
-      <a href="#contact">Contact</a>
-    </nav>
   </header>
 
   <main>
 
     <section id="about">
-      <img src="img/mischaufen.jpg" alt="MISChaufen mascot — a cyberpunk mechanical rooster" class="hero">
-      <p>
-        MISChaufen is a virtual hackerspace, a group of friends, colleagues and everything in between.
-        We hang out online all year to share projects, break things, fix them again and swap ideas on
-        tech, security, homelabs, radio and whatever else catches our interest.
-        At 40C3 we finally get to meet in person again — come by for a chat, show us what you're
-        working on, or join the pile.
-      </p>
-      <p>Come find us if you are into:</p>
-      <ul>
-        <li>IT Security</li>
-        <li>Hardware Tinkering</li>
-        <li>Radio Sports</li>
-        <li>having a drink or some smoke</li>
-      </ul>
+      <div class="section-header">
+        <h2>About MISChaufen</h2>
+      </div>
+      <div class="card-grid">
+        <div class="card-wide">
+          MISChaufen is a virtual hackerspace, a group of friends, colleagues and everything in between.
+          We hang out online all year to share projects, break things, fix them again and swap ideas on
+          tech, security, homelabs, radio and whatever else catches our interest.
+          At 40C3 we finally get to meet in person again — come by for a chat, show us what you're
+          working on, or join the pile.
+        </div>
+        <article class="card">
+          <h3>IT Security</h3>
+          <p>Offensive and defensive security, CTFs, vulnerability research, and all things infosec.</p>
+        </article>
+        <article class="card">
+          <h3>Hardware Tinkering</h3>
+          <p>Electronics, microcontrollers, PCB design, 3D printing, and taking things apart to see how they work.</p>
+        </article>
+        <article class="card">
+          <h3>Radio Sports</h3>
+          <p>Amateur radio, SDR, antenna experiments, and chasing signals across the spectrum.</p>
+        </article>
+        <article class="card">
+          <h3>Good Times</h3>
+          <p>Come for a drink or some smoke. We're friendly, promise.</p>
+        </article>
+      </div>
     </section>
 
     <section id="projects">
-      <h2>Projects</h2>
-      <p class="muted">// coming soon</p>
+      <div class="section-header normal">
+        <h2>Projects</h2>
+      </div>
+      <div class="card-grid">
+        <article class="card">
+          <h3>Coming Soon</h3>
+          <p class="muted">// more soon</p>
+        </article>
+      </div>
     </section>
 
     <section id="team">
-      <h2>Team</h2>
-      <p class="muted">// coming soon</p>
+      <div class="section-header normal">
+        <h2>Team</h2>
+      </div>
+      <div class="card-grid">
+        <article class="card">
+          <h3>Coming Soon</h3>
+          <p class="muted">// more soon</p>
+        </article>
+      </div>
     </section>
 
     <section id="contact">
-      <h2>Contact</h2>
-      <p>Find us at the next <a href="https://events.ccc.de/">CCC event</a> or reach out online.</p>
+      <div class="section-header normal">
+        <h2>Contact</h2>
+      </div>
+      <div class="card-grid">
+        <article class="card">
+          <h3>CCC Events</h3>
+          <ul>
+            <li><a href="https://events.ccc.de/">events.ccc.de</a></li>
+          </ul>
+        </article>
+      </div>
     </section>
 
   </main>
@@ -131,8 +167,7 @@
         <p>Wir treffen nach Maßgabe der gesetzlichen Vorgaben geeignete technische und organisatorische Maßnahmen, um ein dem Risiko angemessenes Schutzniveau zu gewährleisten.</p>
 
         <h3>Hosting und Logfiles</h3>
-        <p>Diese Website wird von einem externen Hostinganbieter betrieben. Die von uns in Anspruch genommenen Hosting-Leistungen dienen der Zurverfügungstellung der folgenden Leistungen: Infrastruktur- und Plattformdienstleistungen, Rechenkapazität, Speicherplatz und Datenbankdienste, Sicherheitsleistungen sowie technische Wartungsleistungen.</p>
-        <p>Hierbei verarbeiten wir bzw. unser Hostinganbieter Bestandsdaten, Kontaktdaten, Inhaltsdaten, Nutzungsdaten sowie Meta- und Kommunikationsdaten von Besuchern dieses Onlineangebotes auf Grundlage unserer berechtigten Interessen an einer effizienten und sicheren Zurverfügungstellung dieses Onlineangebotes gem. Art. 6 Abs. 1 lit. f DSGVO i.V.m. Art. 28 DSGVO. Serverlogdaten (z.B. aufgerufene Seiten, IP-Adressen, Zeitpunkt des Abrufs) werden aus Sicherheitsgründen für maximal 7 Tage gespeichert und danach gelöscht.</p>
+        <p>Diese Website wird von einem externen Hostinganbieter betrieben. Hierbei verarbeiten wir bzw. unser Hostinganbieter Bestandsdaten, Kontaktdaten, Inhaltsdaten, Nutzungsdaten sowie Meta- und Kommunikationsdaten von Besuchern dieses Onlineangebotes auf Grundlage unserer berechtigten Interessen gem. Art. 6 Abs. 1 lit. f DSGVO i.V.m. Art. 28 DSGVO. Serverlogdaten werden aus Sicherheitsgründen für maximal 7 Tage gespeichert und danach gelöscht.</p>
 
         <h3>Rechte der betroffenen Personen</h3>
         <p>Sie haben das Recht auf Auskunft, Berichtigung, Löschung und Einschränkung der Verarbeitung der Sie betreffenden Daten sowie das Recht auf Datenübertragbarkeit. Sie haben ferner das Recht, eine Beschwerde bei der zuständigen Aufsichtsbehörde einzureichen.</p>
@@ -141,7 +176,7 @@
         <p>Diese Website setzt keine Cookies ein.</p>
 
         <h3>Einbindung von Diensten Dritter</h3>
-        <p>Alle auf dieser Website eingebundenen Ressourcen (Schriften, Skripte, Bilder) werden vom eigenen Server ausgeliefert. Es werden keine externen Dienste Dritter eingebunden.</p>
+        <p>Alle auf dieser Website eingebundenen Ressourcen werden vom eigenen Server ausgeliefert. Es werden keine externen Dienste Dritter eingebunden.</p>
 
         <p><strong>Vom Websiteinhaber angepasst.</strong> <a href="https://datenschutz-generator.de">Erstellt mit Datenschutz-Generator.de von RA Dr. Thomas Schwenke</a></p>
       </div>
@@ -149,5 +184,6 @@
 
   </footer>
 
+</div>
 </body>
 </html>
