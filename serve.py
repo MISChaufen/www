@@ -4,7 +4,7 @@ import http.server
 import os
 
 PORT = 8000
-STYLES = {"v1", "v2", "v3", "v4"}
+STYLES = {"v1", "v2", "v3", "v4", "v5"}
 DEFAULT = "v4"
 
 
@@ -25,10 +25,29 @@ class Handler(http.server.SimpleHTTPRequestHandler):
 
         super().do_GET()
 
+    def send_head(self):
+        if self._is_html():
+            for h in ("If-Modified-Since", "If-None-Match"):
+                try:
+                    del self.headers[h]
+                except KeyError:
+                    pass
+        return super().send_head()
+
     def send_response(self, code, message=None):
         super().send_response(code, message)
         if getattr(self, "_new_style", None) and code == 200:
             self.send_header("Set-Cookie", f"style={self._new_style}; Path=/; SameSite=Lax")
+
+    def end_headers(self):
+        if self._is_html():
+            self.send_header("Cache-Control", "no-store")
+            self._headers_buffer = [
+                b for b in self._headers_buffer
+                if not b.lower().startswith(b"content-length:")
+            ]
+            self.close_connection = True
+        super().end_headers()
 
     def copyfile(self, source, outputfile):
         if self.path.endswith(".html") or self.path.endswith("/") or self.path in ("", "/"):
@@ -38,6 +57,10 @@ class Handler(http.server.SimpleHTTPRequestHandler):
             outputfile.write(content)
         else:
             super().copyfile(source, outputfile)
+
+    def _is_html(self):
+        p = self.path
+        return p.endswith(".html") or p.endswith("/") or p in ("", "/")
 
     def _read_cookie(self, name):
         for part in self.headers.get("Cookie", "").split(";"):
@@ -57,4 +80,5 @@ if __name__ == "__main__":
     print(f"  ?style=v2  — warez  (matrix green, CRT scanlines)")
     print(f"  ?style=v3  — cyber  (Cyberpunk 2077, yellow glow)")
     print(f"  ?style=v4  — network (raw.ag dark navy)  [default]")
+    print(f"  ?style=v5  — tron    (TRON: Legacy cyan grid)")
     http.server.test(HandlerClass=Handler, port=PORT, bind="0.0.0.0")

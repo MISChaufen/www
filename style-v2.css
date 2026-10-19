@@ -166,6 +166,7 @@ li::before { content: ">> "; color: var(--bright); font-weight: 700; }
   0%, 49% { opacity: 1; }
   50%, 100% { opacity: 0; }
 }
+@keyframes ticker { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
 .cursor {
   color: var(--bright);
   text-shadow: var(--glow);
@@ -282,4 +283,19 @@ summary:hover { color: var(--fg); }
   footer { letter-spacing: 0; }
 }
 
-.glow-line { display: none; }
+.glow-line {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: .5rem;
+  color: var(--dim);
+  letter-spacing: .1em;
+  border-top: 1px solid var(--dim);
+  padding-top: .35rem;
+  overflow: hidden;
+  white-space: nowrap;
+  height: 1.1rem;
+}
+.glow-line::before {
+  content: 'UART 115200 8N1 ◈ JTAG UNLOCKED ◈ READ 0xDEADBEEF=0xFF3A1C00 ◈ SPI CLK 24MHz ◈ FLASH 0x00000000-0x00FFFFFF ◈ GPIO17 HIGH ◈ GPIO22 LOW ◈ VCC 3.312V ◈ I2C 0x68 ACK ◈ REG[0x2C]=0xFF3A ◈ BOOTLOADER INTERRUPTED ◈ DUMPING FIRMWARE ◈ CRC32:0xA3F71B2E MISMATCH EXPECTED:0xDECAFBAD ◈ RETRY 3/5 ◈ EEPROM WRITE 0x1000 ◈ SP=0xBFFFF4A8 ◈ IRQ PENDING ◈ DMA CH3 OVERFLOW ◈ OSC 16.000MHz ◈ FUSE:0xFF 0xD9 0xFD ◈ HEAP 0x20001A40 ◈ WATCHDOG RESET ◈ PC=0x08003F2C ◈ NOP SLED ◈ STACK SMASH ◈ UART 115200 8N1 ◈ JTAG UNLOCKED ◈ READ 0xDEADBEEF=0xFF3A1C00 ◈ SPI CLK 24MHz ◈ FLASH 0x00000000-0x00FFFFFF ◈ GPIO17 HIGH ◈ GPIO22 LOW ◈ VCC 3.312V ◈ I2C 0x68 ACK ◈ REG[0x2C]=0xFF3A ◈ BOOTLOADER INTERRUPTED ◈ DUMPING FIRMWARE ◈ CRC32:0xA3F71B2E MISMATCH EXPECTED:0xDECAFBAD ◈ RETRY 3/5 ◈ EEPROM WRITE 0x1000 ◈ SP=0xBFFFF4A8 ◈ IRQ PENDING ◈ DMA CH3 OVERFLOW ◈ OSC 16.000MHz ◈ FUSE:0xFF 0xD9 0xFD ◈ HEAP 0x20001A40 ◈ WATCHDOG RESET ◈ PC=0x08003F2C ◈ NOP SLED ◈ STACK SMASH ◈';
+  display: inline-block;
+  animation: ticker 60s linear infinite;
+}

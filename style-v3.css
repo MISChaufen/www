@@ -3,25 +3,45 @@
 * { box-sizing: border-box; }
 
 :root {
-  --bg:     #090804;
-  --panel:  #0e0d08;
+  --bg:     #080703;
+  --panel:  #0e0b06;
   --fg:     #cfc49a;
   --yellow: #fcee09;
   --cyan:   #00e5ff;
   --pink:   #ff003c;
   --dim:    #4a4228;
-  --border: #2a2212;
-  --glow-y: 0 0 8px #fcee09bb;
-  --glow-c: 0 0 6px #00e5ffaa;
+  --border: #2a2010;
+  --glow-y: 0 0 10px #fcee09cc;
+  --glow-c: 0 0 8px #00e5ffaa;
+  --glow-p: 0 0 6px #ff003caa;
 }
+
+/* ── GRID BACKGROUND ─────────────────────────────── */
 
 html {
   background-color: var(--bg);
   background-image:
-    linear-gradient(rgba(252, 238, 9, .028) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(252, 238, 9, .028) 1px, transparent 1px);
+    linear-gradient(rgba(252, 238, 9, .025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(252, 238, 9, .025) 1px, transparent 1px);
   background-size: 48px 48px;
   color: var(--fg);
+  min-height: 100vh;
+}
+
+/* ── SCANLINES ───────────────────────────────────── */
+
+html::after {
+  content: '';
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: 9000;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 3px,
+    rgba(0, 0, 0, .10) 3px 4px
+  );
 }
 
 body {
@@ -34,31 +54,37 @@ body {
 a { color: var(--cyan); text-decoration: none; font-weight: 700; letter-spacing: .02em; }
 a:hover, a:focus { color: var(--yellow); text-shadow: var(--glow-y); text-decoration: none; }
 
-/* ── GLITCH ─────────────────────────────────────────── */
+/* ── ANIMATIONS ──────────────────────────────────── */
 
 @keyframes glitch {
   0%, 86%, 100% { text-shadow: var(--glow-y); transform: none; }
-  87% { text-shadow: -3px 0 var(--pink), 3px 0 var(--cyan); transform: translateX(-2px) skewX(-1deg); }
-  88% { text-shadow: 3px 0 var(--pink), -3px 0 var(--cyan); transform: translateX(2px); }
-  89% { text-shadow: var(--glow-y); transform: none; }
-  90% { text-shadow: 1px 0 var(--cyan), -1px 0 var(--pink); transform: skewX(.5deg); }
-  91% { text-shadow: var(--glow-y); transform: none; }
+  87%  { text-shadow: -3px 0 var(--pink), 3px 0 var(--cyan); transform: translateX(-2px) skewX(-1deg); }
+  88%  { text-shadow: 3px 0 var(--pink), -3px 0 var(--cyan); transform: translateX(2px); }
+  89%  { text-shadow: var(--glow-y); transform: none; }
+  90%  { text-shadow: 1px 0 var(--cyan), -1px 0 var(--pink); transform: skewX(.5deg); }
+  91%  { text-shadow: var(--glow-y); transform: none; }
 }
 
-@keyframes blink { 0%, 49% { opacity: 1; } 50%, 100% { opacity: 0; } }
+@keyframes blink  { 0%, 49% { opacity: 1; } 50%, 100% { opacity: 0; } }
 
-/* ── HEADER ─────────────────────────────────────────── */
+@keyframes ticker {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* ── HEADER ──────────────────────────────────────── */
 
 header {
   background: var(--panel);
   border: 1px solid var(--yellow);
   clip-path: polygon(0 0, calc(100% - 22px) 0, 100% 22px, 100% 100%, 22px 100%, 0 calc(100% - 22px));
-  padding: 1.75rem 1.75rem 1.25rem;
+  padding: .875rem 1.75rem 1.25rem;
   margin-bottom: 2.5rem;
   display: flex;
   flex-direction: column;
   gap: .75rem;
   position: relative;
+  box-shadow: 0 0 40px rgba(252, 238, 9, .07), inset 0 0 60px rgba(0, 0, 0, .4);
 }
 
 /* solid corner fills to emphasise the cut */
@@ -66,10 +92,10 @@ header::before,
 header::after {
   content: '';
   position: absolute;
-  width: 10px;
-  height: 10px;
   background: var(--yellow);
   box-shadow: var(--glow-y);
+  width: 10px;
+  height: 10px;
 }
 header::before { top: -1px; left: -1px; }
 header::after  { bottom: -1px; right: -1px; }
@@ -132,12 +158,65 @@ nav a {
   color: var(--fg);
   padding: .2rem .75rem;
   border-right: 1px solid var(--border);
+  transition: color .15s, background .15s;
 }
 nav a:first-of-type { padding-left: 0; }
 nav a:last-of-type  { border-right: none; }
-nav a:hover { color: var(--yellow); text-shadow: var(--glow-y); background: rgba(252,238,9,.04); }
+nav a:hover { color: var(--yellow); text-shadow: var(--glow-y); background: rgba(252, 238, 9, .05); }
 
-/* ── HERO ───────────────────────────────────────────── */
+/* ── DATA STREAM TICKER ──────────────────────────── */
+
+/* Repurpose .glow-line as a scrolling binary/sys ticker */
+.glow-line {
+  font-family: 'Courier New', monospace;
+  font-size: .5rem;
+  color: var(--dim);
+  letter-spacing: .1em;
+  border-top: 1px solid rgba(252, 238, 9, .15);
+  padding-top: .35rem;
+  overflow: hidden;
+  white-space: nowrap;
+  height: 1.1rem;
+}
+.glow-line::before {
+  content: 'UART 115200 8N1 ◈ JTAG UNLOCKED ◈ READ 0xDEADBEEF=0xFF3A1C00 ◈ SPI CLK 24MHz ◈ FLASH 0x00000000-0x00FFFFFF ◈ GPIO17 HIGH ◈ GPIO22 LOW ◈ VCC 3.312V ◈ I2C 0x68 ACK ◈ REG[0x2C]=0xFF3A ◈ BOOTLOADER INTERRUPTED ◈ DUMPING FIRMWARE ◈ CRC32:0xA3F71B2E MISMATCH EXPECTED:0xDECAFBAD ◈ RETRY 3/5 ◈ EEPROM WRITE 0x1000 ◈ SP=0xBFFFF4A8 ◈ IRQ PENDING ◈ DMA CH3 OVERFLOW ◈ OSC 16.000MHz ◈ FUSE:0xFF 0xD9 0xFD ◈ HEAP 0x20001A40 ◈ WATCHDOG RESET ◈ PC=0x08003F2C ◈ NOP SLED ◈ STACK SMASH ◈ UART 115200 8N1 ◈ JTAG UNLOCKED ◈ READ 0xDEADBEEF=0xFF3A1C00 ◈ SPI CLK 24MHz ◈ FLASH 0x00000000-0x00FFFFFF ◈ GPIO17 HIGH ◈ GPIO22 LOW ◈ VCC 3.312V ◈ I2C 0x68 ACK ◈ REG[0x2C]=0xFF3A ◈ BOOTLOADER INTERRUPTED ◈ DUMPING FIRMWARE ◈ CRC32:0xA3F71B2E MISMATCH EXPECTED:0xDECAFBAD ◈ RETRY 3/5 ◈ EEPROM WRITE 0x1000 ◈ SP=0xBFFFF4A8 ◈ IRQ PENDING ◈ DMA CH3 OVERFLOW ◈ OSC 16.000MHz ◈ FUSE:0xFF 0xD9 0xFD ◈ HEAP 0x20001A40 ◈ WATCHDOG RESET ◈ PC=0x08003F2C ◈ NOP SLED ◈ STACK SMASH ◈';
+  display: inline-block;
+  animation: ticker 60s linear infinite;
+}
+
+/* ── SECTIONS ────────────────────────────────────── */
+
+section {
+  margin-bottom: 2.5rem;
+  position: relative;
+  padding-bottom: .5rem;
+}
+
+/* HUD-style corner bracket decorations */
+section::before {
+  content: '';
+  position: absolute;
+  top: -6px;
+  left: -10px;
+  width: 14px;
+  height: 14px;
+  border-top: 1px solid var(--dim);
+  border-left: 1px solid var(--dim);
+  pointer-events: none;
+}
+section::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  right: -10px;
+  width: 14px;
+  height: 14px;
+  border-bottom: 1px solid var(--dim);
+  border-right: 1px solid var(--dim);
+  pointer-events: none;
+}
+
+/* ── HERO ────────────────────────────────────────── */
 
 .hero {
   width: 100%;
@@ -146,27 +225,27 @@ nav a:hover { color: var(--yellow); text-shadow: var(--glow-y); background: rgba
   margin: 0 0 2rem;
   border: 1px solid var(--yellow);
   clip-path: polygon(0 0, calc(100% - 18px) 0, 100% 18px, 100% 100%, 18px 100%, 0 calc(100% - 18px));
+  box-shadow: 0 0 20px rgba(252, 238, 9, .08);
 }
 
-/* ── HEADINGS ───────────────────────────────────────── */
+/* ── HEADINGS ────────────────────────────────────── */
 
+/* Yellow filled badge label — matches CP2077 "STARTS"/"ENDS" style */
 h2 {
-  font-size: 1rem;
+  font-size: .65rem;
   font-weight: 900;
-  letter-spacing: .2em;
+  letter-spacing: .28em;
   text-transform: uppercase;
-  margin: 3rem 0 1rem;
-  color: var(--yellow);
-  text-shadow: var(--glow-y);
-  padding-left: .875rem;
-  border-left: 3px solid var(--yellow);
-  display: flex;
-  align-items: center;
-  gap: .6rem;
-  line-height: 1.4;
+  margin: 3rem 0 1.25rem;
+  padding: .3rem .875rem;
+  color: #080703;
+  background: var(--yellow);
+  width: fit-content;
+  display: block;
+  clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 0 100%);
+  box-shadow: 0 0 18px rgba(252, 238, 9, .5), 3px 3px 0 rgba(0, 0, 0, .5);
 }
-h2::before { content: "▸"; color: var(--yellow); font-size: .55rem; flex-shrink: 0; }
-h2::after  { content: ""; flex: 1; height: 1px; background: var(--border); }
+h2::before { content: "▸ "; color: rgba(0, 0, 0, .45); font-size: .6rem; }
 
 h3 {
   font-size: .85rem;
@@ -175,20 +254,21 @@ h3 {
   letter-spacing: .1em;
   text-transform: uppercase;
   color: var(--yellow);
+  text-shadow: var(--glow-y);
 }
 
-/* ── LISTS ──────────────────────────────────────────── */
+/* ── LISTS ───────────────────────────────────────── */
 
 ul { padding-left: 0; list-style: none; }
 li { margin: .5rem 0; padding-left: 1.5rem; text-indent: -1.5rem; }
 li::before { content: "▸ "; color: var(--yellow); font-size: .8em; }
 
-/* ── UTILITIES ──────────────────────────────────────── */
+/* ── UTILITIES ───────────────────────────────────── */
 
-.muted { color: var(--dim); }
+.muted { color: var(--dim); font-family: 'Courier New', monospace; font-size: .82rem; }
 .date  { color: var(--dim); font-size: .72rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; }
 
-/* ── CODE ───────────────────────────────────────────── */
+/* ── CODE ────────────────────────────────────────── */
 
 code {
   background: #0d0c06;
@@ -209,7 +289,7 @@ pre {
 }
 pre code { border: none; padding: 0; }
 
-/* ── TABLES / DL ─────────────────────────────────────── */
+/* ── TABLES / DL ─────────────────────────────────── */
 
 img { max-width: 100%; height: auto; }
 table { border-collapse: collapse; display: block; overflow-x: auto; }
@@ -221,12 +301,12 @@ dl { display: grid; grid-template-columns: max-content 1fr; gap: .35rem 1.5rem; 
 dt { color: var(--dim); font-size: .7rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; padding-top: .15rem; }
 dd { margin: 0; }
 
-/* ── FOOTER ─────────────────────────────────────────── */
+/* ── FOOTER ─────────────────────────────────────── */
 
 footer {
   background: var(--panel);
   border: 1px solid var(--border);
-  clip-path: polygon(0 0, calc(100% - 16px) 0, 100% 16px, 100% 100%, 16px 100%, 0 calc(100% - 16px));
+  border-top: 2px solid var(--yellow);
   padding: 1rem 1.5rem;
   margin-top: 4rem;
   color: var(--dim);
@@ -235,17 +315,22 @@ footer {
   letter-spacing: .1em;
   text-transform: uppercase;
   position: relative;
+  box-shadow: 0 0 20px rgba(252, 238, 9, .05);
 }
+
+/* yellow corner accents at top of footer matching the border */
 footer::before,
 footer::after {
   content: '';
   position: absolute;
+  top: -3px;
   width: 6px;
   height: 6px;
-  background: var(--border);
+  background: var(--yellow);
+  box-shadow: var(--glow-y);
 }
-footer::before { top: -1px; left: -1px; }
-footer::after  { bottom: -1px; right: -1px; }
+footer::before { left: 0; }
+footer::after  { right: 0; }
 
 .footer-links {
   display: flex;
@@ -253,10 +338,18 @@ footer::after  { bottom: -1px; right: -1px; }
   flex-wrap: wrap;
   margin-bottom: .5rem;
 }
-.footer-links a { color: var(--dim); font-weight: 700; }
+.footer-links a { color: var(--dim); font-weight: 700; transition: color .15s; }
 .footer-links a:hover { color: var(--yellow); text-shadow: var(--glow-y); }
+.footer-links span {
+  font-family: 'Courier New', monospace;
+  font-size: .7rem;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--dim);
+}
 
-/* ── LEGAL ──────────────────────────────────────────── */
+/* ── LEGAL ──────────────────────────────────────── */
 
 details {
   margin-top: 1.5rem;
@@ -272,6 +365,7 @@ summary {
   color: var(--dim);
   user-select: none;
   list-style: none;
+  transition: color .15s;
 }
 summary::-webkit-details-marker { display: none; }
 summary::before { content: "[+] "; color: var(--yellow); }
@@ -295,14 +389,22 @@ summary:hover { color: var(--fg); }
   letter-spacing: .08em;
   text-transform: uppercase;
   font-weight: 700;
+  background: none;
+  width: auto;
+  clip-path: none;
+  box-shadow: none;
+  padding: 0;
+  display: block;
+  text-shadow: none;
 }
+.legal h3::before { display: none; }
 .legal p { margin: .5rem 0; }
 .legal ul { margin: .5rem 0; }
 .legal li::before { content: "▸ "; color: var(--dim); font-size: .8em; }
 .legal a { font-size: inherit; }
 .legal table td, .legal table th { font-size: .72rem; }
 
-/* ── RESPONSIVE ─────────────────────────────────────── */
+/* ── RESPONSIVE ─────────────────────────────────── */
 
 @media (max-width: 30rem) {
   body { padding-left: 1rem; padding-right: 1rem; }
@@ -311,5 +413,3 @@ summary:hover { color: var(--fg); }
   dl { grid-template-columns: 1fr; }
   dt { margin-top: .5rem; }
 }
-
-.glow-line { display: none; }
