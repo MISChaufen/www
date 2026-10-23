@@ -4,8 +4,8 @@ import http.server
 import os
 
 PORT = 8000
-STYLES = {"v1", "v2", "v3", "v4", "v5"}
-DEFAULT = "v4"
+STYLES = {"v3", "v5"}
+DEFAULT = "v3"
 
 
 class Handler(http.server.SimpleHTTPRequestHandler):
@@ -76,9 +76,6 @@ class Handler(http.server.SimpleHTTPRequestHandler):
 if __name__ == "__main__":
     os.chdir(os.path.dirname(os.path.abspath(__file__)))
     print(f"Serving MISChaufen at http://localhost:{PORT}")
-    print(f"  ?style=v1  — clean  (warm beige, benni.tech inspired)")
-    print(f"  ?style=v2  — warez  (matrix green, CRT scanlines)")
-    print(f"  ?style=v3  — cyber  (Cyberpunk 2077, yellow glow)")
-    print(f"  ?style=v4  — network (raw.ag dark navy)  [default]")
-    print(f"  ?style=v5  — tron    (TRON: Legacy cyan grid)")
+    print(f"  ?style=v3  — cyber  (Cyberpunk 2077, yellow glow)  [default]")
+    print(f"  ?style=v5  — tron   (TRON: Legacy cyan grid)")
     http.server.test(HandlerClass=Handler, port=PORT, bind="0.0.0.0")
