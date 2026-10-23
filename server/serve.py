@@ -74,7 +74,7 @@ class Handler(http.server.SimpleHTTPRequestHandler):
 
 
 if __name__ == "__main__":
-    os.chdir(os.path.dirname(os.path.abspath(__file__)))
+    os.chdir(os.path.join(os.path.dirname(os.path.abspath(__file__)), "../public"))
     print(f"Serving MISChaufen at http://localhost:{PORT}")
     print(f"  ?style=v3  — cyber  (Cyberpunk 2077, yellow glow)  [default]")
     print(f"  ?style=v5  — tron   (TRON: Legacy cyan grid)")

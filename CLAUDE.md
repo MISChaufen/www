@@ -24,11 +24,18 @@ Both themes share a scrolling hardware ticker (`animation: ticker 60s linear inf
 
 ## Structure
 
-- `index.html` — single page: About, Projects, Team, Contact; English Legal Notice + Privacy Policy in `<details>` footer elements
-- `img/` — `mischaufen.jpg` + `mischaufen.webp` (hero, 640×640), `mischaufen-badge.jpg` (512×512), `webm.png` (obfuscated email)
-- `favicon.ico` / `favicon.png` — 32×32 generated from badge image
-- `serve.py` — dev server: 304 cache fix, cookie-based theme switching, bind 0.0.0.0:8000
-- `nginx-theme.conf` — `map{}` + `sub_filter` fragments for production nginx
-- `nginx-site.conf` — complete nginx server config for Hetzner deployment
-- `404.html` — standalone error page (inline CSS, no external deps)
+- `public/` — web server root (nginx `root` and `serve.py` point here)
+  - `index.html` — single page: About, Projects, Team, Contact; Legal Notice + Privacy Policy in `<details>` footer
+  - `404.html` — standalone error page (inline CSS, no external deps)
+  - `favicon.ico` / `favicon.png` — 32×32
+  - `style.css` — symlink → `style-v3.css`
+  - `style-v3.css`, `style-v5.css` — themes
+  - `img/` — `mischaufen.jpg` + `mischaufen.webp` (hero, 640×640), `mischaufen-badge.jpg`, `webm.png`
+  - `CNAME` — GitHub Pages fallback mapping
+- `server/` — not served; deployment and dev tooling only
+  - `serve.py` — dev server: 304 cache fix, cookie-based theme switching, bind 0.0.0.0:8000
+  - `serve.sh` — dev launcher shortcut
+  - `nginx-site.conf` — complete nginx config for Hetzner (`root /var/www/mischaufen/public`)
+  - `nginx-theme.conf` — `map{}` + `sub_filter` fragments for production nginx
+- `docs/` — not served; legal research and compliance notes
 - `.github/workflows/deploy.yml` — CI/CD (to be created when server is provisioned)
