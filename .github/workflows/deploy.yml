@@ -28,7 +28,7 @@ jobs:
       - name: Check internal links
         uses: lycheeverse/lychee-action@v2
         with:
-          args: --offline --no-progress --exclude-mail public/index.html public/404.html
+          args: --offline --no-progress public/index.html public/404.html
 
   deploy:
     needs: validate
