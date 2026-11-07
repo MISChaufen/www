@@ -414,5 +414,5 @@ summary:hover { color: var(--fg); }
 }
 
 @media (min-width: 60rem) {
-  body { font-size: 17px; }
+  body { font-size: 19px; }
 }
