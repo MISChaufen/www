@@ -8,7 +8,7 @@
   --fg:      #98c4dc;
   --blue:    #00e5ff;
   --white:   #dff4ff;
-  --dim:     #0e3850;
+  --dim:     #3a7a9a;
   --border:  #0a2d40;
   --grid:    rgba(0, 210, 255, .055);
   --glow-b:  0 0 8px rgba(0, 229, 255, .9), 0 0 24px rgba(0, 229, 255, .4), 0 0 55px rgba(0, 229, 255, .12);
@@ -58,7 +58,7 @@ body {
   max-width: 52rem;
   margin: 0 auto;
   padding: 2.5rem 1.5rem 5rem;
-  font: 14px/1.75 'Segoe UI', 'Helvetica Neue', system-ui, sans-serif;
+  font: 16px/1.75 'Segoe UI', 'Helvetica Neue', system-ui, sans-serif;
 }
 
 a { color: var(--blue); text-decoration: none; font-weight: 500; }
@@ -167,7 +167,7 @@ header h1 a { color: inherit; text-shadow: inherit; text-decoration: none; }
 
 .tagline {
   font-size: .62rem;
-  color: rgba(0, 229, 255, .45);
+  color: rgba(0, 229, 255, .65);
   letter-spacing: .22em;
   text-transform: uppercase;
   margin: .2rem 0 0;
@@ -429,7 +429,6 @@ summary:hover { color: var(--fg); }
   letter-spacing: 0;
   text-transform: none;
   color: var(--fg);
-  opacity: .7;
 }
 .legal h3 {
   color: var(--blue);
@@ -463,4 +462,8 @@ summary:hover { color: var(--fg); }
   dl { grid-template-columns: 1fr; }
   dt { margin-top: .5rem; }
   footer::after { display: none; }
+}
+
+@media (min-width: 60rem) {
+  body { font-size: 17px; }
 }

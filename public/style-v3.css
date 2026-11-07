@@ -9,7 +9,7 @@
   --yellow: #fcee09;
   --cyan:   #00e5ff;
   --pink:   #ff003c;
-  --dim:    #4a4228;
+  --dim:    #7a6845;
   --border: #2a2010;
   --glow-y: 0 0 10px #fcee09cc;
   --glow-c: 0 0 8px #00e5ffaa;
@@ -48,7 +48,7 @@ body {
   max-width: 52rem;
   margin: 0 auto;
   padding: 2.5rem 1.5rem 5rem;
-  font: 14px/1.7 'Arial Narrow', Arial, sans-serif;
+  font: 16px/1.7 'Arial Narrow', Arial, sans-serif;
 }
 
 a { color: var(--cyan); text-decoration: none; font-weight: 700; letter-spacing: .02em; }
@@ -380,7 +380,6 @@ summary:hover { color: var(--fg); }
   letter-spacing: 0;
   text-transform: none;
   color: var(--fg);
-  opacity: .7;
 }
 .legal h3 {
   color: var(--yellow);
@@ -412,4 +411,8 @@ summary:hover { color: var(--fg); }
   header h1 { font-size: 1.4rem; }
   dl { grid-template-columns: 1fr; }
   dt { margin-top: .5rem; }
+}
+
+@media (min-width: 60rem) {
+  body { font-size: 17px; }
 }
