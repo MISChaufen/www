@@ -38,4 +38,6 @@ Both themes share a scrolling hardware ticker (`animation: ticker 60s linear inf
   - `nginx-site.conf` — complete nginx config for Hetzner (`root /var/www/mischaufen/public`)
   - `nginx-theme.conf` — `map{}` + `sub_filter` fragments for production nginx
 - `docs/` — not served; legal research and compliance notes
-- `.github/workflows/deploy.yml` — CI/CD (to be created when server is provisioned)
+- `.github/workflows/deploy.yml` — CI/CD: validates HTML + CSS + internal links, then deploys `public/` to GitHub Pages on every push to `main`
+- `.htmlvalidate.json` — html-validate config (recommended preset, minor overrides)
+- `.stylelintrc.json` — stylelint config (error-level rules only)
